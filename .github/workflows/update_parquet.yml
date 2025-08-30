@@ -41,12 +41,17 @@ jobs:
           python - <<'EOF'
           import pandas as pd
           import json
+
+          # Read the Parquet file
           df = pd.read_parquet("ohlcv.parquet")
 
-          # Compact JSON (fast & small)
+          # Convert 'date' column to ISO string
+          df["date"] = df["date"].dt.strftime("%Y-%m-%d")
+
+          # Compact JSON
           df.to_json("ohlcv.json", orient="records", date_format="iso")
 
-          # Pretty JSON (easier for humans to browse)
+          # Pretty JSON
           records = df.to_dict(orient="records")
           with open("ohlcv_pretty.json", "w") as f:
               json.dump(records, f, indent=2)

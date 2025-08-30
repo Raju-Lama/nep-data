@@ -32,8 +32,11 @@ def fetch_data(symbol, start_date="1970-01-01", end_date=None):
             return None
 
         ts = data["t"]
+        # ✅ keep as pandas datetime64[ns] (no Python date objects)
+        dates = pd.to_datetime(ts, unit="s").normalize()
+
         df = pd.DataFrame({
-            "date": pd.to_datetime(ts, unit="s").date,
+            "date": dates,
             "symbol": symbol,
             "open": data["o"],
             "high": data["h"],
@@ -96,19 +99,29 @@ def update_parquet():
 
     for sym, sdf in all_data.groupby("symbol"):
         sdf = sdf.sort_values("date")
+
+        # ✅ TradingView-like payload: NO raw datetime objects
+        # Vectorized epoch seconds (UTC-naive): datetime64[ns] -> int64 ns -> sec
+        t = (pd.to_datetime(sdf["date"]).astype("int64") // 10**9).tolist()
+
         data = {
             "symbol": sym,
             "s": "ok",
-            "t": [int(time.mktime(d.timetuple())) for d in pd.to_datetime(sdf["date"])],
-            "o": sdf["open"].astype(float).tolist(),
-            "h": sdf["high"].astype(float).tolist(),
-            "l": sdf["low"].astype(float).tolist(),
-            "c": sdf["close"].astype(float).tolist(),
-            "v": sdf["volume"].astype(int).tolist(),
+            "t": t,
+            "o": [float(x) for x in sdf["open"].tolist()],
+            "h": [float(x) for x in sdf["high"].tolist()],
+            "l": [float(x) for x in sdf["low"].tolist()],
+            "c": [float(x) for x in sdf["close"].tolist()],
+            "v": [int(x) for x in sdf["volume"].tolist()],
         }
-         # ✅ sanitize filename to avoid errors
+
+        # ✅ sanitize filename WITHOUT regex (your ask)
         safe_sym = sym.replace("/", "_").replace("\\", "_")
-        (outdir / f"{safe_sym}.json").write_text(json.dumps(data))
+        (outdir / f"{safe_sym}.json").write_text(
+            json.dumps(data, separators=(",", ":")),  # compact JSON
+            encoding="utf-8"
+        )
+        logging.info(f"📁 Saved json/{safe_sym}.json")
 
 
 if __name__ == "__main__":

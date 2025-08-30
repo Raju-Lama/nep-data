@@ -60,7 +60,7 @@ jobs:
           import json
 
           from pathlib import Path
-          import time
+
 
           df = pd.read_parquet("ohlcv.parquet")
 
@@ -69,9 +69,13 @@ jobs:
 
           for sym, sdf in df.groupby("symbol"):
               sdf = sdf.sort_values("date")
+
+              # Vectorized epoch seconds to avoid any Python date objects
+              t = (pd.to_datetime(sdf["date"]).astype("int64") // 10**9).tolist()
+              
               data = {
                   "s": "ok",
-                  "t": [int(time.mktime(d.timetuple())) for d in pd.to_datetime(sdf["date"])],
+                  "t": t,
                   "o": sdf["open"].astype(float).tolist(),
                   "h": sdf["high"].astype(float).tolist(),
                   "l": sdf["low"].astype(float).tolist(),

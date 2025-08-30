@@ -9,3 +9,13 @@ It is provided **for educational and research purposes only**.
 
 NEPSE is the official source of stock market data.  
 If you require verified and licensed data for production use, please consult NEPSE directly.
+
+https://raju-lama.github.io/nep-data/
+
+https://raju-lama.github.io/nep-data/ohlcv.json
+
+https://raju-lama.github.io/nep-data/all_active_symbols.csv
+
+https://raju-lama.github.io/nep-data/ohlcv_pretty.json
+
+https://raju-lama.github.io/nep-data/json/bhcl.json

@@ -5,12 +5,19 @@ on:
     - cron: "15 10 * * 0-4"   # 4:15 PM NPT = 10:15 UTC, Sun–Thu
   workflow_dispatch:
 
+
+permissions:
+  contents: write   # 👈 allow pushing commits
+
+
 jobs:
   update-data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # 👈 use workflow token
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -27,6 +34,15 @@ jobs:
 
       - name: Update OHLCV Parquet
         run: python update_parquet.py
+
+      - name: Convert Parquet to JSON
+        run: |
+          python - <<'EOF'
+          import pandas as pd
+          df = pd.read_parquet("ohlcv.parquet")
+          df.to_json("ohlcv.json", orient="records", date_format="iso")
+          EOF
+          git add ohlcv.json
 
       - name: Commit & push
         run: |

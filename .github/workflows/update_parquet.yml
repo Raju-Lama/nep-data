@@ -46,7 +46,7 @@ jobs:
           df = pd.read_parquet("ohlcv.parquet")
 
           # Convert 'date' column to ISO string
-          df["date"] = df["date"].dt.strftime("%Y-%m-%d")
+          df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d")
 
           # Compact JSON
           df.to_json("ohlcv.json", orient="records", date_format="iso")

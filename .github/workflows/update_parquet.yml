@@ -87,7 +87,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add all_active_symbols.csv ohlcv.parquet
+          git add all_active_symbols.csv ohlcv.parquet ohlcv.json ohlcv_pretty.json json/
           git commit -m "Daily NEPSE update" || echo "No changes"
           git pull --rebase
           git push

@@ -39,16 +39,54 @@ jobs:
         run: |
           python - <<'EOF'
           import pandas as pd
+          import json
           df = pd.read_parquet("ohlcv.parquet")
+
+          # Compact JSON (fast & small)
           df.to_json("ohlcv.json", orient="records", date_format="iso")
+
+          # Pretty JSON (easier for humans to browse)
+          records = df.to_dict(orient="records")
+          with open("ohlcv_pretty.json", "w") as f:
+              json.dump(records, f, indent=2)
           EOF
-          git add ohlcv.json
+
+      - name: Split Parquet into per-symbol JSON (API style)
+        run: |
+          mkdir -p json
+          python - <<'EOF'
+          import pandas as pd
+          import json
+
+          from pathlib import Path
+          import time
+
+          df = pd.read_parquet("ohlcv.parquet")
+
+          outdir = Path("json")
+          outdir.mkdir(exist_ok=True)
+
+          for sym, sdf in df.groupby("symbol"):
+              sdf = sdf.sort_values("date")
+              data = {
+                  "s": "ok",
+                  "t": [int(time.mktime(d.timetuple())) for d in pd.to_datetime(sdf["date"])],
+                  "o": sdf["open"].astype(float).tolist(),
+                  "h": sdf["high"].astype(float).tolist(),
+                  "l": sdf["low"].astype(float).tolist(),
+                  "c": sdf["close"].astype(float).tolist(),
+                  "v": sdf["volume"].astype(int).tolist(),
+              }
+              (outdir / f"{sym}.json").write_text(pd.io.json.dumps(data))
+          print(f"✅ Exported {len(df['symbol'].unique())} symbol files")
+          EOF
+
 
       - name: Commit & push
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add all_active_symbols.csv ohlcv.parquet
+          git add all_active_symbols.csv ohlcv.parquet ohlcv.json json/
           git commit -m "Daily NEPSE update" || echo "No changes"
           git pull --rebase origin main || true
           git push origin HEAD:main

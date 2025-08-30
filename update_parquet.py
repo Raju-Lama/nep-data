@@ -4,6 +4,7 @@ from datetime import datetime
 import time
 import logging
 from pathlib import Path
+import os, json
 
 # ---------------------------
 # Config
@@ -11,8 +12,7 @@ from pathlib import Path
 SYMBOLS_FILE = "all_active_symbols.csv"
 PARQUET_FILE = "ohlcv.parquet"
 BASE_URL = "https://api.nepsetrading.com/historical-chart/daily/unadjusted"
-REQUEST_DELAY = 1.2
-# ✅ one request every 1.2 seconds (safe for API)
+REQUEST_DELAY = 1.2  # ✅ one request every 1.2 seconds
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
@@ -30,6 +30,7 @@ def fetch_data(symbol, start_date="1970-01-01", end_date=None):
         if data.get("s") != "ok":
             logging.warning(f"⚠️ No data for {symbol} (status={data.get('s')})")
             return None
+
         ts = data["t"]
         df = pd.DataFrame({
             "date": pd.to_datetime(ts, unit="s").date,
@@ -56,7 +57,7 @@ def update_parquet():
     else:
         all_data = pd.DataFrame()
 
-    # Load active symbols
+    # Load active symbols (equity only)
     df_symbols = pd.read_csv(SYMBOLS_FILE)
     symbols = df_symbols[df_symbols["instrumentType"].str.lower() == "equity"]["symbol"].unique()
     logging.info(f"✅ {len(symbols)} active equity symbols loaded")
@@ -65,7 +66,6 @@ def update_parquet():
     today = datetime.now().strftime("%Y-%m-%d")
 
     for idx, sym in enumerate(symbols, 1):
-        # Check if we already have data
         if not all_data.empty and sym in all_data["symbol"].values:
             last_date = all_data.loc[all_data["symbol"] == sym, "date"].max()
             start_date = (pd.to_datetime(last_date) + pd.Timedelta(days=1)).strftime("%Y-%m-%d")
@@ -87,6 +87,27 @@ def update_parquet():
         logging.info(f"💾 Updated {PARQUET_FILE} → {len(all_data)} rows")
     else:
         logging.info("ℹ️ No new data to update")
+
+    # ---------------------------
+    # Export per-symbol JSONs
+    # ---------------------------
+    outdir = Path("json")
+    outdir.mkdir(exist_ok=True)
+
+    for sym, sdf in all_data.groupby("symbol"):
+        sdf = sdf.sort_values("date")
+        data = {
+            "symbol": sym,
+            "s": "ok",
+            "t": [int(time.mktime(d.timetuple())) for d in pd.to_datetime(sdf["date"])],
+            "o": sdf["open"].astype(float).tolist(),
+            "h": sdf["high"].astype(float).tolist(),
+            "l": sdf["low"].astype(float).tolist(),
+            "c": sdf["close"].astype(float).tolist(),
+            "v": sdf["volume"].astype(int).tolist(),
+        }
+        (outdir / f"{sym}.json").write_text(json.dumps(data))
+        logging.info(f"📁 Saved json/{sym}.json")
 
 if __name__ == "__main__":
     update_parquet()

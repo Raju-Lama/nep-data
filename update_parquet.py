@@ -12,6 +12,7 @@ SYMBOLS_FILE = "all_active_symbols.csv"
 PARQUET_FILE = "ohlcv.parquet"
 BASE_URL = "https://api.nepsetrading.com/historical-chart/daily/unadjusted"
 REQUEST_DELAY = 1.2
+# ✅ one request every 1.2 seconds (safe for API)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 

@@ -80,9 +80,8 @@ jobs:
                   "v": sdf["volume"].astype(int).tolist(),
               }
       
-              safe_sym = re.sub(r'[\\/]', '_', sym)         # replace any slash or backslash
-              filename = outdir / f"{safe_sym}.json"
-              filename.write_text(json.dumps(data))
+              safe_sym = re.sub(r'[\\/]', '_', sym)
+              (outdir / f"{safe_sym}.json").write_text(json.dumps(data))
           print(f"✅ Exported {len(df['symbol'].unique())} symbol files")
           EOF
 

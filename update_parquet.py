@@ -106,8 +106,9 @@ def update_parquet():
             "c": sdf["close"].astype(float).tolist(),
             "v": sdf["volume"].astype(int).tolist(),
         }
-        (outdir / f"{sym}.json").write_text(json.dumps(data))
-        logging.info(f"📁 Saved json/{sym}.json")
+         # ✅ sanitize filename to avoid errors
+        safe_sym = re.sub(r'[\\/]', '_', sym)
+        (outdir / f"{safe_sym}.json").write_text(json.dumps(data))
 
 if __name__ == "__main__":
     update_parquet()

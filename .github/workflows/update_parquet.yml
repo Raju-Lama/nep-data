@@ -58,7 +58,6 @@ jobs:
           python - <<'EOF'
           import pandas as pd
           import json
-          import re
 
           from pathlib import Path
           import time
@@ -80,8 +79,9 @@ jobs:
                   "v": sdf["volume"].astype(int).tolist(),
               }
       
-              safe_sym = re.sub(r'[\\/]', '_', sym)
+              safe_sym = sym.replace("/", "_").replace("\\", "_")
               (outdir / f"{safe_sym}.json").write_text(json.dumps(data))
+
           print(f"✅ Exported {len(df['symbol'].unique())} symbol files")
           EOF
 

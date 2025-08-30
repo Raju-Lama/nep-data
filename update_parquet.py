@@ -107,8 +107,9 @@ def update_parquet():
             "v": sdf["volume"].astype(int).tolist(),
         }
          # ✅ sanitize filename to avoid errors
-        safe_sym = re.sub(r'[\\/]', '_', sym)
+        safe_sym = sym.replace("/", "_").replace("\\", "_")
         (outdir / f"{safe_sym}.json").write_text(json.dumps(data))
+
 
 if __name__ == "__main__":
     update_parquet()

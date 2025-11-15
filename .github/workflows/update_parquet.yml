@@ -73,6 +73,7 @@ jobs:
           outdir.mkdir(exist_ok=True)
 
           for sym, sdf in df.groupby("symbol"):
+              sdf['date'] = pd.to_datetime(sdf['date'])
               sdf = sdf.sort_values("date")
 
               # Vectorized epoch seconds to avoid any Python date objects

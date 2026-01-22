@@ -14,6 +14,7 @@ ALICL,Asian Life Insurance Co Limited,Life Insurance,Equity
 ANLB,Aatmanirbhar Laghubitta Bittitya Sanstha Limited,Microfinance,Equity
 API,API POWER COMPANY LIMITED,Hydro Power,Equity
 AVYAN,Aviyan laghubittya bittiya sanstha limited,Microfinance,Equity
+BANDIPUR,Bandipur Cable Car and Tourism Limited,Hotels And Tourism,Equity
 BARUN,Barun Hydropower Co. Ltd.,Hydro Power,Equity
 BBC,Bishal Bazar Company Limited,Tradings,Equity
 BEDC,Bhugol Energy Development Company Ltd,Hydro Power,Equity
@@ -29,6 +30,7 @@ BNT,Bottlers Nepal (Terai) Limited,Manufacturing And Processing,Equity
 BOKD86,Bank of Kathmandu Ltd.,Commercial Banks,Non-Convertible Debentures
 BOKD86KA,Bank of Kathmandu Ltd.,Commercial Banks,Non-Convertible Debentures
 BPCL,Butwal Power Company Limited,Hydro Power,Equity
+BUNGAL,Bungal Hydro Limited,Hydro Power,Equity
 C30MF,Citizens Bank International Limited,Commercial Banks,Mutual Funds
 CBBL,Chhimek Laghubitta Bittiya Sanstha Limited,Microfinance,Equity
 CBLD88,Civil Bank Ltd,Commercial Banks,Non-Convertible Debentures
@@ -50,6 +52,7 @@ CREST,Crest Micro Life Insurance Limited,Life Insurance,Equity
 CYCL,CYC Nepal laghubitta Bittiya Sanstha Limited,Microfinance,Equity
 CZBIL,Citizens Bank International Limited,Commercial Banks,Equity
 DDBL,Deprosc Laghubitta Bittiya Sanstha Limited,Microfinance,Equity
+DHEL,Daramkhola hydro Energy Ltd.,Hydro Power,Equity
 DHPL,Dibyashwori Hydropower Ltd.,Hydro Power,Equity
 DLBS,Dhaulagiri laghubitta Sanstha Limited,Microfinance,Equity
 DOLTI,Dolti Power Company Ltd.,Hydro Power,Equity
@@ -99,6 +102,7 @@ HIDCL,Hydorelectricity Investment and Development Company Ltd,Investment,Equity
 HIMSTAR,Himstar Urja Company Ltd.,Hydro Power,Equity
 HLBSL,Himalayan Laghubitta Bittiya Sanstha Limited,Microfinance,Equity
 HLI,Himalayan Life Insurance Limited,Life Insurance,Equity
+HLICF,Himalayan Life Insurance Limited,Life Insurance,Mutual Funds
 HPPL,Himalayan Power Partner Ltd.,Hydro Power,Equity
 HRL,Himalayan Reinsurance Limited,Others,Equity
 HURJA,Himalaya Urja Bikas Company Limited,Hydro Power,Equity
@@ -113,6 +117,7 @@ JBBD87,Jyoti Bikas Bank Limited,Development Banks,Non-Convertible Debentures
 JBBL,Jyoti Bikas Bank Limited,Development Banks,Equity
 JBLB,Jeevan Bikas Laghubitta Bittiya Sanstha Ltd,Microfinance,Equity
 JFL,Janaki Finance Company Limited,Finance,Equity
+JHAPA,Jhapa Energy Limited,Others,Equity
 JOSHI,Joshi Hydropower Development Company Ltd,Hydro Power,Equity
 JSLBB,Janautthan Samudayic Laghubitta Bittya Sanstha Limited,Microfinance,Equity
 KBL,Kumari Bank Limited,Commercial Banks,Equity
@@ -139,6 +144,7 @@ LLBS,Laxmi Laghubitta Bittiya Sanstha Ltd.,Microfinance,Equity
 LSL,Laxmi Sunrise Bank Limited,Commercial Banks,Equity
 LUK,Laxmi Capital Market Limited,Mutual Fund,Mutual Funds
 LVF2,Laxmi Sunrise Bank Limited,Commercial Banks,Mutual Funds
+MABEL,Mabilung Energy Limited,Hydro Power,Equity
 MAKAR,Makar Jitumaya Suri Hydropower Ltd ,Hydro Power,Equity
 MANDU,Mandu Hydropower Limited,Hydro Power,Equity
 MATRI,Matribhumi Lagubitta Bittiya Sanstha Limited,Microfinance,Equity
@@ -177,6 +183,7 @@ MSHL,Mid solu Hydropower Limited,Hydro Power,Equity
 MSLB,Mahuli Laghubitta Bittiya Sanstha Limited,Microfinance,Equity
 NABBC,Narayani Development Bank Limited,Development Banks,Equity
 NABIL,Nabil Bank Limited,Commercial Banks,Equity
+NABILD2089,Nabil Bank Limited,Commercial Banks,Non-Convertible Debentures
 NABILD87,Nabil Bank Limited,Commercial Banks,Non-Convertible Debentures
 NADEP,Nadep Laghubittiya bittya Sanstha Ltd.,Microfinance,Equity
 NBBD2085,Nepal Bangladesh Bank Limited,Commercial Banks,Non-Convertible Debentures
@@ -199,7 +206,6 @@ NIBLSTF,Nepal Investment Mega Bank Limited,Commercial Banks,Mutual Funds
 NIBSF2,Nepal Investment Mega Bank Limited,Commercial Banks,Mutual Funds
 NICA,NIC Asia Bank Ltd.,Commercial Banks,Equity
 NICAD2091,NIC Asia Bank Ltd.,Commercial Banks,Non-Convertible Debentures
-NICAD8283,NIC Asia Bank Ltd.,Commercial Banks,Non-Convertible Debentures
 NICAD85/86,NIC Asia Bank Ltd.,Commercial Banks,Non-Convertible Debentures
 NICBF,NIC ASIA Capital Ltd,Mutual Fund,Mutual Funds
 NICD83/84,NIC Asia Bank Ltd.,Commercial Banks,Non-Convertible Debentures
@@ -254,7 +260,7 @@ PMHPL,Panchakanya Mai Hydropower Ltd,Hydro Power,Equity
 PMLI,Prabhu Mahalaxmi Life Insurance Limited,Life Insurance,Equity
 PPCL,Panchthar Power Company Ltd,Hydro Power,Equity
 PPL,Peoples Power Limited,Hydro Power,Equity
-PRIN,Prabhu Insurance Ltd.,Non Life Insurance,Equity
+PRIN,Prabhu Insurance Limited,Non Life Insurance,Equity
 PROFL,Progressive Finance Limited,Finance,Equity
 PRSF,Prabhu Capital Limited,Mutual Fund,Mutual Funds
 PRVU,Prabhu  Bank Limited,Commercial Banks,Equity
@@ -264,6 +270,7 @@ RADHI,Radhi Bidyut Company Ltd,Hydro Power,Equity
 RAWA,Rawa Energy Development Ltd.,Hydro Power,Equity
 RBBD2088,Rastriya Banijya Bank,Commercial Banks,Non-Convertible Debentures
 RBBD83,Rastriya Banijya Bank,Commercial Banks,Non-Convertible Debentures
+RBBF40,RBB Merchant Banking Limited,Mutual Fund,Mutual Funds
 RBCL,Rastriya Beema Company Limited,Non Life Insurance,Equity
 RFPL,River Falls power Limited,Hydro Power,Equity
 RHGCL,Rapti Hydro and General Construction Limited,Hydro Power,Equity
@@ -277,10 +284,11 @@ RSDC,RSDC Laghubitta Bittiya Sanstha Ltd.,Microfinance,Equity
 RSY,Reliable Nepal Life Insurance Ltd,Life Insurance,Mutual Funds
 RURU,Ru Ru Jalbidhyut Pariyojana Limited,Hydro Power,Equity
 SADBL,SHANGRI-LA DEVELOPMENT BANK LIMITED,Development Banks,Equity
+SAGAR,Sagar Distillery Limited,Manufacturing And Processing,Equity
 SAGF,Sanima Growth Fund,Mutual Fund,Mutual Funds
 SAHAS,Sahas Urja Limited,Hydro Power,Equity
+SAIL,SHREENAGAR AGRITECH INDUSTRIES LIMITED,Manufacturing And Processing,Equity
 SALICO,Sagarmatha Lumbini Insurance Co. Limited,Non Life Insurance,Equity
-SAMAJ,Samaj Laghubitta Bittiya Sanstha Ltd,Microfinance,Equity
 SAND2085,Sanima Bank Limited,Commercial Banks,Non-Convertible Debentures
 SANIMA,Sanima Bank Limited,Commercial Banks,Equity
 SANVI,Sanvi Energy Limited,Hydro Power,Equity
@@ -291,10 +299,11 @@ SBD87,Sanima Bank Limited,Commercial Banks,Non-Convertible Debentures
 SBD89,Sanima Bank Limited,Commercial Banks,Non-Convertible Debentures
 SBI,Nepal SBI Bank Limited,Commercial Banks,Equity
 SBIBD86,Nepal SBI Bank Limited,Commercial Banks,Non-Convertible Debentures
+SBID2090,Nepal SBI Bank Limited,Commercial Banks,Non-Convertible Debentures
 SBID83,Nepal SBI Bank Limited,Commercial Banks,Non-Convertible Debentures
 SBID89,Nepal SBI Bank Limited,Commercial Banks,Non-Convertible Debentures
 SBL,Siddhartha Bank Limited,Commercial Banks,Equity
-SBLD2082,Siddhartha Bank Limited,Commercial Banks,Non-Convertible Debentures
+SBLD2091,Siddhartha Bank Limited,Commercial Banks,Non-Convertible Debentures
 SBLD83,Siddhartha Bank Limited,Commercial Banks,Non-Convertible Debentures
 SBLD84,Siddhartha Bank Limited,Commercial Banks,Non-Convertible Debentures
 SBLD89,Siddhartha Bank Limited,Commercial Banks,Non-Convertible Debentures
@@ -309,6 +318,7 @@ SGHC,Swet-Ganga Hydropower and Construction Limited,Hydro Power,Equity
 SGIC,Sanima GIC Insurance Limited,Non Life Insurance,Equity
 SHEL,Singati Hydro Energy Ltd,Hydro Power,Equity
 SHINE,SHINE RESUNGA DEVELOPMENT BANK LTD,Development Banks,Equity
+SHINED,SHINE RESUNGA DEVELOPMENT BANK LTD,Development Banks,Non-Convertible Debentures
 SHIVM,Shivam Cements Limited,Manufacturing And Processing,Equity
 SHL,Soaltee Hotel Limited,Hotels And Tourism,Equity
 SHLB,Shrijanshil Laghubitta Baittiya sanstha Limited,Microfinance,Equity
@@ -343,8 +353,10 @@ SRBLD83,Sunrise Bank Limited,Commercial Banks,Non-Convertible Debentures
 SRLI,Sanima Reliance Life Insurance Limited,Life Insurance,Equity
 SSHL,Shiva Shree Hydropower Limited,Hydro Power,Equity
 STC,Salt Trading Corporation,Tradings,Equity
+SWASTIK,SWASTIK LAGHUBITTA BITTIYA SANSTHA LTD.,Microfinance,Equity
 SWBBL,Swabalamban Laghubitta Bittiya Sanstha Limited,Microfinance,Equity
 SWMF,Suryodaya Womi Laghubitta Bittiya Sanstha Limited,Microfinance,Equity
+SYPNL,SY PANEL NEPAL LIMITED,Manufacturing And Processing,Equity
 TAMOR,Sanima Middle Tamor Hydropower Limited,Hydro Power,Equity
 TPC,Terhathum Power Company Limited,Hydro Power,Equity
 TRH,Taragaon Regency Hotel Limited,Hotels And Tourism,Equity

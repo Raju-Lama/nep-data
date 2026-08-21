@@ -18,4 +18,4 @@ https://raju-lama.github.io/nep-data/all_active_symbols.csv
 
 https://raju-lama.github.io/nep-data/ohlcv_pretty.json
 
-https://raju-lama.github.io/nep-data/json/bhcl.json
+https://raju-lama.github.io/nep-data/json/BHCL.json

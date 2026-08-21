@@ -5,20 +5,26 @@ on:
     - cron: "15 10 * * 0-4"   # 4:15 PM NPT = 10:15 UTC, Sun–Thu
   workflow_dispatch:
 
-
 permissions:
-  contents: write   # 👈 allow pushing commits
-
+  contents: write
 
 jobs:
   update-data:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0                     # ← ADD THIS LINE
-          persist-credentials: true          # ← ADD THIS LINE
+          fetch-depth: 0
+          persist-credentials: true
+          ref: main
+
+      - name: Sync with latest main
+        run: |
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -27,6 +33,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install pandas pyarrow requests playwright
           python -m playwright install --with-deps chromium
 
@@ -42,30 +49,30 @@ jobs:
           import pandas as pd
           import json
 
-          # Read the Parquet file
           df = pd.read_parquet("ohlcv.parquet")
 
-          # Convert 'date' column to ISO string
           df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d")
 
-          # Compact JSON
-          df.to_json("ohlcv.json", orient="records", date_format="iso")
+          df.to_json(
+              "ohlcv.json",
+              orient="records",
+              date_format="iso"
+          )
 
-          # Pretty JSON
           records = df.to_dict(orient="records")
+
           with open("ohlcv_pretty.json", "w") as f:
               json.dump(records, f, indent=2)
           EOF
 
-      - name: Split Parquet into per-symbol JSON (API style)
+      - name: Split Parquet into per-symbol JSON
         run: |
           mkdir -p json
+
           python - <<'EOF'
           import pandas as pd
           import json
-
           from pathlib import Path
-
 
           df = pd.read_parquet("ohlcv.parquet")
 
@@ -73,12 +80,15 @@ jobs:
           outdir.mkdir(exist_ok=True)
 
           for sym, sdf in df.groupby("symbol"):
-              sdf['date'] = pd.to_datetime(sdf['date'])
+              sdf = sdf.copy()
+
+              sdf["date"] = pd.to_datetime(sdf["date"])
               sdf = sdf.sort_values("date")
 
-              # Vectorized epoch seconds to avoid any Python date objects
-              t = (pd.to_datetime(sdf["date"]).astype("int64") // 10**9).tolist()
-              
+              t = (
+                  pd.to_datetime(sdf["date"]).astype("int64") // 10**9
+              ).tolist()
+
               data = {
                   "s": "ok",
                   "t": t,
@@ -88,19 +98,36 @@ jobs:
                   "c": sdf["close"].astype(float).tolist(),
                   "v": sdf["volume"].astype(int).tolist(),
               }
-      
+
               safe_sym = sym.replace("/", "_").replace("\\", "_")
-              (outdir / f"{safe_sym}.json").write_text(json.dumps(data))
 
-          print(f"✅ Exported {len(df['symbol'].unique())} symbol files")
+              (outdir / f"{safe_sym}.json").write_text(
+                  json.dumps(data)
+              )
+
+          print(
+              f"Exported {len(df['symbol'].unique())} symbol files"
+          )
           EOF
-
 
       - name: Commit & push
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add all_active_symbols.csv ohlcv.parquet ohlcv.json ohlcv_pretty.json json/
-          git diff --cached --quiet || git commit -m "Daily NEPSE update"
-          git pull --rebase origin main      # fail if conflicts
-          git push origin HEAD:main
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add \
+            all_active_symbols.csv \
+            ohlcv.parquet \
+            ohlcv.json \
+            ohlcv_pretty.json \
+            json/
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Daily NEPSE update"
+
+          git push origin main
+

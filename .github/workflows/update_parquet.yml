@@ -2,7 +2,9 @@ name: NEPSE Daily Data
 
 on:
   schedule:
-    - cron: "15 10 * * 0-4"   # 4:15 PM NPT = 10:15 UTC, Sun–Thu
+    - cron: "15,30,45 5 * * 0-4" # 11:00, 11:15, 11:30 NPT (Sun–Thu)
+    - cron: "*/15 6-8 * * 0-4"   # 11:45–14:45 NPT (Sun–Thu)
+    - cron: "0,15 9 * * 0-4"     # 14:45, 15:00 NPT (Sun–Thu)
   workflow_dispatch:
 
 permissions:
@@ -25,6 +27,23 @@ jobs:
           git fetch origin main
           git checkout main
           git reset --hard origin/main
+
+      - name: Check NEPSE market hours (NPT)
+        run: |
+          DOW="$(TZ=Asia/Kathmandu date +%u)"   # 1=Mon ... 7=Sun
+          HM="$(TZ=Asia/Kathmandu date +%H%M)"  # 24h local time
+
+          if [ "$DOW" -eq 5 ] || [ "$DOW" -eq 6 ]; then
+            echo "Market closed today (NPT). Skipping update."
+            exit 0
+          fi
+
+          if [ "$HM" -lt 1100 ] || [ "$HM" -gt 1515 ]; then
+            echo "Outside market hours (11:00-15:15 NPT). Skipping update."
+            exit 0
+          fi
+
+          echo "Market is open (NPT). Proceeding with update."
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -130,4 +149,3 @@ jobs:
           git commit -m "Daily NEPSE update"
 
           git push origin main
-
